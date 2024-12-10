@@ -1,0 +1,65 @@
+Using Ollama for AI Summarization in FCM-VSS
+============================================
+
+**FCM-VSS** leverages the power of locally hosted AI models through the **Ollama** library to automatically generate detailed summaries of your FCM configuration. This integration helps users quickly extract insights about system dynamics, node statistics, and stability without manual intervention.
+
+Three-Part Payload for AI Summarization
+---------------------------------------
+
+When using AI summarization in **FCM-VSS**, a structured payload is sent to the **Ollama** model. The payload is broken down into three key parts:
+
+1. **Node Statistics**: This includes metrics such as indegree, outdegree, and centrality for each node within the FCM. These statistics help determine the influence and importance of each concept within the network.
+
+2. **Kosko Simulation Values**: The results from the Kosko inference mechanism, which help assess how the system behaves over multiple iterations and whether it reaches equilibrium.
+
+3. **Differences in Static Node Convergence**: This component compares the static nodes (with fixed activation values) to the final values obtained from the Kosko simulation, offering insights into the impact of immovable nodes on the overall network.
+
+Installing Ollama
+-----------------
+
+To enable AI summarization within **FCM-VSS**, you first need to install the **Ollama Python library**. This library allows the application to communicate with locally hosted AI models for generating text-based outputs like the FCM summaries.
+
+1. Ensure you have Python version 3.9 or higher installed on your system.
+2. Install the **Ollama Python library** using the following command:
+
+.. code-block:: bash
+
+   pip install ollama-python
+
+Once **Ollama** is installed, you can manage AI models and initiate the summarization process directly within the **FCM-VSS** interface.
+
+Installing AI Models with Ollama
+--------------------------------
+
+To install AI models for use in **FCM-VSS**, you can pull the models from **Ollama**. This can be done by running the following command:
+
+.. code-block:: bash
+
+   ollama pull <name_of_model>
+
+For example, if you want to pull the **Llama 3.1 8B** model, you can run:
+
+.. code-block:: bash
+
+   ollama pull llama3.1_8b
+
+Once the model is downloaded, it will be available for use in **FCM-VSS**.
+
+AI Model Selection in FCM-VSS
+-----------------------------
+
+After installing the **Ollama Python library** and the necessary models, follow these steps within the **FCM-VSS** app:
+
+1. **Select the AI Model**:
+   - From the **Playground Menu** in the app, use the dropdown to choose the AI model you want to use for summarization. The available models will be listed here.
+
+2. **Set the Model**:
+   - Once you have selected the appropriate model, click the **Set Model** button to load the AI model for use.
+
+3. **Run AI Summarization**:
+   - Click the **AI-Summarize FCM Config** button to trigger the summarization process. The tri-partite summary based on the node statistics, Kosko simulation values, and static node differences will be generated and displayed.
+
+Additional Resources
+--------------------
+
+For more details about the **Ollama Python library**, visit the official repository here: `Ollama Python Library <https://github.com/KennyRich/ollama-python>`_.

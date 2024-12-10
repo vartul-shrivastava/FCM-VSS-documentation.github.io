@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kosko Simulation &#8212; FCM-VSS 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css" />
+    <script src="static/documentation_options.js?v="></script>
+    <script src="static/doctools.js"></script>
+    <script src="static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Ollama for AI Summarization in FCM-VSS" href="ai_integration.html" />
+    <link rel="prev" title="FCM-VSS Features" href="features.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+
+  
+  
+
+  </head><body>
+
+  <div class="logo-container" style="text-align: center; padding: 10px;">
+    <img src="static/logo.png" alt="FCM-VSS Logo" style="max-width: 150px;">
+  </div>
+    
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="fcm-vss-features">
+<h1>FCM-VSS Features<a class="headerlink" href="#fcm-vss-features" title="Link to this heading">¶</a></h1>
+<p>FCM-VSS offers a rich set of features to help you manage, visualize, and simulate Fuzzy Cognitive Maps (FCMs). Here’s an overview of the main functionalities:</p>
+<ol class="arabic">
+<li><p>FCM-VSS ensures secure data handling by using Advanced Encryption Standard (AES) with Galois Counter Mode (GCM). This encryption is used to secure FCM projects, checkpoints, and snapshots, preventing unauthorized access.</p>
+<ul class="simple">
+<li><p>The session key is used to encrypt and decrypt files during an active session.</p></li>
+<li><p>Files encrypted in one session can only be accessed with the same session key in another session.</p></li>
+</ul>
+<p><strong>How to Use:</strong>
+- At the start of each session, the user is prompted to enter a session key for AES-GCM encryption.
+- This key must be used throughout the session for saving and loading projects.</p>
+</li>
+<li><p>FCM-VSS allows users to save their FCM network configuration at any point using checkpoints. These checkpoints can be used to restore previous states, facilitating an organized workflow.</p>
+<ul class="simple">
+<li><p><strong>Checkpoints</strong>: Save the state of the FCM at any point during the process. A tray for capturing and selecting checkpoints is maintained.</p></li>
+<li><p><strong>Snapshots</strong>: Export and import FCM configurations as snapshots.</p></li>
+</ul>
+<p><strong>How to Use:</strong>
+- Save checkpoints during the development process using the <strong>Save as Checkpoint</strong> option.
+- Snapshots can be exported for future reference, ensuring the network configuration is preserved.</p>
+</li>
+<li><p>FCM-VSS offers intuitive controls for creating and managing FCM networks. You can add, delete, rename, or adjust nodes and edges in real time.</p>
+<p><strong>Key Features</strong>:
+- Add or remove nodes and edges with a simple click.
+- Keyboard shortcuts for faster workflow:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Ctrl + Q</strong>: Add Node</p></li>
+<li><p><strong>Ctrl + E</strong>: Add Edge</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Visual feedback for selected nodes and edges.</p></li>
+</ul>
+</li>
+<li><p>FCM-VSS integrates locally hosted AI models through <strong>Ollama</strong> to generate summaries of the FCM configuration.</p>
+<p><strong>How it works</strong>:
+- Summarization is based on node statistics, Kosko simulation values, and the difference in static node convergence values.
+- The summary is generated and presented as a tri-partite structure: node statistics, Kosko convergence values, and static node comparison.</p>
+<p><strong>How to Use</strong>:
+- Select the AI model from the dropdown in the playground.
+- Click the <strong>AI-Summarize FCM Config</strong> button to get the AI-based summary.</p>
+</li>
+<li><p>FCM-VSS supports multiple Kosko-based inference mechanisms:
+- <strong>Original Kosko</strong>
+- <strong>Modified Kosko</strong> (with self-influence)
+- <strong>Rescaled Kosko</strong> (re-scaled with normalization)</p>
+<p><strong>How to Use</strong>:
+- Access simulation settings from the bottom menu.
+- Choose from different inference mechanisms, transfer functions, and activation patterns.</p>
+<p>See the [Kosko Simulation](kosko_simulation.rst) page for more details on how to configure and run these simulations.</p>
+</li>
+</ol>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FCM-VSS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FCM-VSS Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosko_simulation.html">Kosko Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_integration.html">Using Ollama for AI Summarization in FCM-VSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint_management.html">Checkpoint and Snapshot Management</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">FCM-VSS Documentation</a></li>
+      <li>Next: <a href="kosko_simulation.html" title="next chapter">Kosko Simulation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Vartul Shrivastava, Shekhar Shukla.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/features.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

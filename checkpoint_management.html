@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kosko Simulation &#8212; FCM-VSS 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css" />
+    <script src="static/documentation_options.js?v="></script>
+    <script src="static/doctools.js"></script>
+    <script src="static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Ollama for AI Summarization in FCM-VSS" href="ai_integration.html" />
+    <link rel="prev" title="FCM-VSS Features" href="features.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+
+  </head><body>
+
+  <div class="logo-container" style="text-align: center; padding: 10px;">
+    <img src="static/logo.png" alt="FCM-VSS Logo" style="max-width: 150px;">
+  </div>
+    
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="checkpoint-and-snapshot-management">
+<h1>Checkpoint and Snapshot Management<a class="headerlink" href="#checkpoint-and-snapshot-management" title="Link to this heading">¶</a></h1>
+<p><strong>FCM-VSS</strong> allows users to efficiently manage the development of FCM networks using a system of checkpoints and snapshots. These features help you save and restore FCM configurations at different stages of the modeling process, making it easier to experiment with different configurations and track progress.</p>
+<section id="what-are-checkpoints">
+<h2>What are Checkpoints?<a class="headerlink" href="#what-are-checkpoints" title="Link to this heading">¶</a></h2>
+<p>Checkpoints are saved states of your FCM network that allow you to return to a previous configuration at any point during your project. These checkpoints capture essential aspects of the FCM network, including:</p>
+<ul class="simple">
+<li><p>Node positions</p></li>
+<li><p>Causal relations between nodes (edges)</p></li>
+<li><p>Node names and edge weights</p></li>
+</ul>
+<p>This feature enables iterative development, allowing you to experiment with changes while ensuring that you can revert to a previous state if needed.</p>
+</section>
+<section id="what-are-snapshots">
+<h2>What are Snapshots?<a class="headerlink" href="#what-are-snapshots" title="Link to this heading">¶</a></h2>
+<p>Snapshots are a way to export a single FCM configuration from <strong>FCM-VSS</strong> as a checkpoint. A snapshot essentially captures the current state of one FCM network. These snapshots can be saved externally and later imported into <strong>FCM-VSS</strong>. The unique aspect of snapshots is that they can be imported into a new project or even into an existing project, allowing you to merge or restore FCM configurations across different projects.</p>
+<p>Snapshots are saved in <cite>.snpfcmvss</cite> format, ensuring consistency when exporting and importing. This makes snapshots an ideal tool for sharing FCM networks, creating backups, or transferring FCM configurations between different projects.</p>
+</section>
+<section id="how-to-manage-checkpoints">
+<h2>How to Manage Checkpoints<a class="headerlink" href="#how-to-manage-checkpoints" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><strong>1. Creating Checkpoints:</strong></dt><dd><ul class="simple">
+<li><p>To create a checkpoint, click the <strong>Save as Checkpoint</strong> button in the Management Menu.</p></li>
+<li><p>The checkpoint will appear in the <strong>Checkpoint Tray</strong> with a timestamp, allowing you to easily identify when each checkpoint was created.</p></li>
+</ul>
+</dd>
+<dt><strong>2. Retrieving Checkpoints:</strong></dt><dd><ul class="simple">
+<li><p>To load a previously saved checkpoint, simply select it from the <strong>Checkpoint Tray</strong>.</p></li>
+<li><p>The FCM network will be restored to the state saved in the selected checkpoint, enabling you to roll back to earlier configurations.</p></li>
+</ul>
+</dd>
+<dt><strong>3. Checkpoint Naming:</strong></dt><dd><ul class="simple">
+<li><p>Checkpoints are automatically named based on their creation date and time. This ensures a systematic and chronological progression of your work.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="how-to-use-snapshots">
+<h2>How to Use Snapshots<a class="headerlink" href="#how-to-use-snapshots" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><strong>1. Exporting Snapshots:</strong></dt><dd><ul class="simple">
+<li><p>To export a snapshot, click the <strong>Export Snapshot</strong> button in the Management Menu.</p></li>
+<li><p>Save the file locally in <cite>.snpfcmvss</cite> format. The snapshot represents the current state of a single FCM network, which can be stored, shared, or imported later.</p></li>
+</ul>
+</dd>
+<dt><strong>2. Importing Snapshots:</strong></dt><dd><ul class="simple">
+<li><p>Snapshots can be imported into both fresh projects and existing projects within <strong>FCM-VSS</strong>.</p></li>
+<li><p>To import a snapshot, click <strong>Import Snapshot</strong> from the Management Menu.</p></li>
+<li><p>Select the previously saved <cite>.snpfcmvss</cite> file, and the FCM configuration will be restored within <strong>FCM-VSS</strong>.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="key-differences-between-checkpoints-and-snapshots">
+<h2>Key Differences Between Checkpoints and Snapshots:<a class="headerlink" href="#key-differences-between-checkpoints-and-snapshots" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Checkpoints</strong> are saved within a project, allowing you to move back and forth between different versions of the same FCM network within a project.</p></li>
+<li><p><strong>Snapshots</strong> are exported versions of a single FCM checkpoint, and they can be imported into new or existing projects, enabling broader flexibility for sharing and restoring FCM networks.</p></li>
+</ul>
+<p>Using checkpoints and snapshots ensures that you can efficiently manage your FCM modeling workflow, enabling systematic experimentation and safe backups.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FCM-VSS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">FCM-VSS Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosko_simulation.html">Kosko Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ai_integration.html">Using Ollama for AI Summarization in FCM-VSS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Checkpoint and Snapshot Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-are-checkpoints">What are Checkpoints?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-are-snapshots">What are Snapshots?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-manage-checkpoints">How to Manage Checkpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-snapshots">How to Use Snapshots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-differences-between-checkpoints-and-snapshots">Key Differences Between Checkpoints and Snapshots:</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ai_integration.html" title="previous chapter">Using Ollama for AI Summarization in FCM-VSS</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Vartul Shrivastava, Shekhar Shukla.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/checkpoint_management.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kosko Simulation &#8212; FCM-VSS 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css" />
+    <script src="static/documentation_options.js?v="></script>
+    <script src="static/doctools.js"></script>
+    <script src="static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Ollama for AI Summarization in FCM-VSS" href="ai_integration.html" />
+    <link rel="prev" title="FCM-VSS Features" href="features.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+
+  
+  
+
+  </head><body>
+
+  <div class="logo-container" style="text-align: center; padding: 10px;">
+    <img src="static/logo.png" alt="FCM-VSS Logo" style="max-width: 150px;">
+  </div>
+    
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="using-ollama-for-ai-summarization-in-fcm-vss">
+<h1>Using Ollama for AI Summarization in FCM-VSS<a class="headerlink" href="#using-ollama-for-ai-summarization-in-fcm-vss" title="Link to this heading">¶</a></h1>
+<p><strong>FCM-VSS</strong> leverages the power of locally hosted AI models through the <strong>Ollama</strong> library to automatically generate detailed summaries of your FCM configuration. This integration helps users quickly extract insights about system dynamics, node statistics, and stability without manual intervention.</p>
+<section id="three-part-payload-for-ai-summarization">
+<h2>Three-Part Payload for AI Summarization<a class="headerlink" href="#three-part-payload-for-ai-summarization" title="Link to this heading">¶</a></h2>
+<p>When using AI summarization in <strong>FCM-VSS</strong>, a structured payload is sent to the <strong>Ollama</strong> model. The payload is broken down into three key parts:</p>
+<ol class="arabic simple">
+<li><p><strong>Node Statistics</strong>: This includes metrics such as indegree, outdegree, and centrality for each node within the FCM. These statistics help determine the influence and importance of each concept within the network.</p></li>
+<li><p><strong>Kosko Simulation Values</strong>: The results from the Kosko inference mechanism, which help assess how the system behaves over multiple iterations and whether it reaches equilibrium.</p></li>
+<li><p><strong>Differences in Static Node Convergence</strong>: This component compares the static nodes (with fixed activation values) to the final values obtained from the Kosko simulation, offering insights into the impact of immovable nodes on the overall network.</p></li>
+</ol>
+</section>
+<section id="installing-ollama">
+<h2>Installing Ollama<a class="headerlink" href="#installing-ollama" title="Link to this heading">¶</a></h2>
+<p>To enable AI summarization within <strong>FCM-VSS</strong>, you first need to install the <strong>Ollama Python library</strong>. This library allows the application to communicate with locally hosted AI models for generating text-based outputs like the FCM summaries.</p>
+<ol class="arabic simple">
+<li><p>Ensure you have Python version 3.9 or higher installed on your system.</p></li>
+<li><p>Install the <strong>Ollama Python library</strong> using the following command:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ollama-python
+</pre></div>
+</div>
+<p>Once <strong>Ollama</strong> is installed, you can manage AI models and initiate the summarization process directly within the <strong>FCM-VSS</strong> interface.</p>
+</section>
+<section id="installing-ai-models-with-ollama">
+<h2>Installing AI Models with Ollama<a class="headerlink" href="#installing-ai-models-with-ollama" title="Link to this heading">¶</a></h2>
+<p>To install AI models for use in <strong>FCM-VSS</strong>, you can pull the models from <strong>Ollama</strong>. This can be done by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>&lt;name_of_model&gt;
+</pre></div>
+</div>
+<p>For example, if you want to pull the <strong>Llama 3.1 8B</strong> model, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1:8b
+</pre></div>
+</div>
+<p>Once the model is downloaded, it will be available for use in <strong>FCM-VSS</strong>.</p>
+</section>
+<section id="ai-model-selection-in-fcm-vss">
+<h2>AI Model Selection in FCM-VSS<a class="headerlink" href="#ai-model-selection-in-fcm-vss" title="Link to this heading">¶</a></h2>
+<p>After installing the <strong>Ollama Python library</strong> and the necessary models, follow these steps within the <strong>FCM-VSS</strong> app:</p>
+<ol class="arabic simple">
+<li><p><strong>Select the AI Model</strong>:
+- From the <strong>Playground Menu</strong> in the app, use the dropdown to choose the AI model you want to use for summarization. The available models will be listed here.</p></li>
+<li><p><strong>Set the Model</strong>:
+- Once you have selected the appropriate model, click the <strong>Set Model</strong> button to load the AI model for use.</p></li>
+<li><p><strong>Run AI Summarization</strong>:
+- Click the <strong>AI-Summarize FCM Config</strong> button to trigger the summarization process. The tri-partite summary based on the node statistics, Kosko simulation values, and static node differences will be generated and displayed.</p></li>
+</ol>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">¶</a></h2>
+<p>For more details about the <strong>Ollama Python library</strong>, visit the official repository here: <a class="reference external" href="https://github.com/KennyRich/ollama-python">Ollama Python Library</a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FCM-VSS</a></h1>
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">FCM-VSS Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosko_simulation.html">Kosko Simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Ollama for AI Summarization in FCM-VSS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#three-part-payload-for-ai-summarization">Three-Part Payload for AI Summarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-ollama">Installing Ollama</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-ai-models-with-ollama">Installing AI Models with Ollama</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ai-model-selection-in-fcm-vss">AI Model Selection in FCM-VSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint_management.html">Checkpoint and Snapshot Management</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="kosko_simulation.html" title="previous chapter">Kosko Simulation</a></li>
+      <li>Next: <a href="checkpoint_management.html" title="next chapter">Checkpoint and Snapshot Management</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Vartul Shrivastava, Shekhar Shukla.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/ai_integration.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

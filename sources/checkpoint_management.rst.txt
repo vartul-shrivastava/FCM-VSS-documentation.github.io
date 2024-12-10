@@ -1,0 +1,55 @@
+Checkpoint and Snapshot Management
+==================================
+
+**FCM-VSS** allows users to efficiently manage the development of FCM networks using a system of checkpoints and snapshots. These features help you save and restore FCM configurations at different stages of the modeling process, making it easier to experiment with different configurations and track progress.
+
+What are Checkpoints?
+---------------------
+
+Checkpoints are saved states of your FCM network that allow you to return to a previous configuration at any point during your project. These checkpoints capture essential aspects of the FCM network, including:
+
+- Node positions
+- Causal relations between nodes (edges)
+- Node names and edge weights
+
+This feature enables iterative development, allowing you to experiment with changes while ensuring that you can revert to a previous state if needed.
+
+What are Snapshots?
+-------------------
+
+Snapshots are a way to export a single FCM configuration from **FCM-VSS** as a checkpoint. A snapshot essentially captures the current state of one FCM network. These snapshots can be saved externally and later imported into **FCM-VSS**. The unique aspect of snapshots is that they can be imported into a new project or even into an existing project, allowing you to merge or restore FCM configurations across different projects.
+
+Snapshots are saved in `.snpfcmvss` format, ensuring consistency when exporting and importing. This makes snapshots an ideal tool for sharing FCM networks, creating backups, or transferring FCM configurations between different projects.
+
+How to Manage Checkpoints
+-------------------------
+
+**1. Creating Checkpoints:**
+   - To create a checkpoint, click the **Save as Checkpoint** button in the Management Menu.
+   - The checkpoint will appear in the **Checkpoint Tray** with a timestamp, allowing you to easily identify when each checkpoint was created.
+
+**2. Retrieving Checkpoints:**
+   - To load a previously saved checkpoint, simply select it from the **Checkpoint Tray**.
+   - The FCM network will be restored to the state saved in the selected checkpoint, enabling you to roll back to earlier configurations.
+
+**3. Checkpoint Naming:**
+   - Checkpoints are automatically named based on their creation date and time. This ensures a systematic and chronological progression of your work.
+
+How to Use Snapshots
+--------------------
+
+**1. Exporting Snapshots:**
+   - To export a snapshot, click the **Export Snapshot** button in the Management Menu.
+   - Save the file locally in `.snpfcmvss` format. The snapshot represents the current state of a single FCM network, which can be stored, shared, or imported later.
+
+**2. Importing Snapshots:**
+   - Snapshots can be imported into both fresh projects and existing projects within **FCM-VSS**.
+   - To import a snapshot, click **Import Snapshot** from the Management Menu.
+   - Select the previously saved `.snpfcmvss` file, and the FCM configuration will be restored within **FCM-VSS**.
+
+Key Differences Between Checkpoints and Snapshots:
+--------------------
+- **Checkpoints** are saved within a project, allowing you to move back and forth between different versions of the same FCM network within a project.
+- **Snapshots** are exported versions of a single FCM checkpoint, and they can be imported into new or existing projects, enabling broader flexibility for sharing and restoring FCM networks.
+
+Using checkpoints and snapshots ensures that you can efficiently manage your FCM modeling workflow, enabling systematic experimentation and safe backups.

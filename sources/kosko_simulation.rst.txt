@@ -1,0 +1,156 @@
+Kosko Simulation
+================
+
+Kosko Simulation is a core feature of **FCM-VSS**, enabling users to simulate the behavior and dynamics of Fuzzy Cognitive Maps (FCMs) and assess system stability under different configurations. By simulating the interactions between concepts (nodes), Kosko Simulation offers insights into how a system behaves over time, helping users evaluate the influence and centrality of each concept.
+
+What is Kosko Simulation?
+--------------------------
+
+Kosko Simulation is an iterative process that updates the activation values of nodes based on their weighted causal relationships. FCMs are modeled as directed graphs where nodes represent system concepts, and edges represent the causal influences between them.
+
+**Key Insights from Kosko Simulation:**
+
+- **System Equilibrium**: The simulation shows whether the system reaches a stable state.
+- **Concept Centrality**: It highlights the most influential nodes within the network.
+- **Sensitivity to External Changes**: The simulation identifies how the system responds to changes in input values.
+
+Inference Mechanisms in FCM-VSS
+-------------------------------
+
+FCM-VSS supports three types of Kosko-based inference mechanisms:
+
+1. **Original Kosko**: No self-influence.
+   - Formula: 
+
+   .. math::
+
+      S_i^{(t+1)} = \sum_{j=1}^{n} w_{ji} S_j^{(t)}
+
+   where :math:`S_i^{(t+1)}` is the state of node :math:`i` at iteration :math:`t+1`, and :math:`w_{ji}` is the weight from node :math:`j` to node :math:`i`.
+
+2. **Modified Kosko**: Includes self-influence.
+   - Formula: 
+
+   .. math::
+
+      S_i^{(t+1)} = \sum_{j=1}^{n} w_{ji} S_j^{(t)} + S_i^{(t)}
+
+   This includes a self-influence term, :math:`S_i^{(t)}`, in the update equation.
+
+3. **Rescaled Kosko**: Re-scaled values to normalize node activations.
+   - Formula: 
+
+   .. math::
+
+      S_i^{(t+1)} = \frac{1}{2} \left( \sum_{j=1}^{n} w_{ji} (2S_j^{(t)} - 1) + (2S_i^{(t)} - 1) + 1 \right)
+
+   This method rescales the influence to a [0, 1] range.
+
+Transfer Functions in FCM-VSS
+-----------------------------
+
+Transfer functions are mathematical functions that define how activation values of nodes are rescaled during the simulation. FCM-VSS supports several types of transfer functions to capture the non-linearities in a system's behavior.
+
+1. **Sigmoid Transfer Function**:
+   
+   The Sigmoid function is a smooth, S-shaped function that maps values to a range between 0 and 1. It is often used in simulations where values need to be normalized and constrained.
+
+   .. math::
+
+      f(x) = \frac{1}{1 + e^{-x}}
+
+   Where:
+   - :math:`x` is the input to the function (usually the weighted sum of inputs from connected nodes).
+   - :math:`f(x)` is the normalized output, which ranges between 0 and 1.
+   
+   **Properties**:
+   - As :math:`x` approaches negative infinity, :math:`f(x)` approaches 0.
+   - As :math:`x` approaches positive infinity, :math:`f(x)` approaches 1.
+   - At :math:`x = 0`, the function outputs 0.5, making it symmetric about the origin.
+
+2. **Hyperbolic Tangent (Tanh) Transfer Function**:
+   
+   The Tanh function is similar to the Sigmoid function but maps values to the range [-1, 1]. This function is commonly used when the model needs to account for both positive and negative influences.
+
+   .. math::
+
+      f(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+
+   Where:
+   - :math:`x` is the input to the function.
+   - :math:`f(x)` is the output, which ranges between -1 and 1.
+   
+   **Properties**:
+   - As :math:`x` approaches negative infinity, :math:`f(x)` approaches -1.
+   - As :math:`x` approaches positive infinity, :math:`f(x)` approaches 1.
+   - At :math:`x = 0`, the function outputs 0.
+
+   The Tanh function is often preferred when the influence can have both positive and negative effects.
+
+3. **Bivalent Transfer Function**:
+   
+   The Bivalent function is a step function that outputs either -1 or 1, depending on whether the input is negative or positive.
+
+   .. math::
+
+      f(x) =
+      \begin{cases}
+      1 & \text{if } x > 0 \\
+      -1 & \text{if } x \leq 0
+      \end{cases}
+
+   **Properties**:
+   - This is a hard threshold function that maps all positive inputs to 1 and all non-positive inputs to -1.
+   - It does not provide a smooth transition but is useful in binary systems where only two states are considered.
+
+4. **Trivalent Transfer Function**:
+   
+   The Trivalent function extends the Bivalent function by introducing a third state, 0, for inputs near zero.
+
+   .. math::
+
+      f(x) =
+      \begin{cases}
+      1 & \text{if } x > 0 \\
+      0 & \text{if } x = 0 \\
+      -1 & \text{if } x < 0
+      \end{cases}
+
+   **Properties**:
+   - This function allows for three distinct states: positive (1), neutral (0), and negative (-1).
+   - It’s useful in cases where a neutral or inactive state is required.
+
+How to Run a Kosko Simulation
+-----------------------------
+
+To simulate your FCM network using the Kosko algorithm, follow these steps:
+
+1. **Set up the FCM Network**: Add nodes and edges to your FCM using the Playground Menu.
+2. **Select the Inference Mechanism**:
+   - Use the dropdown in the bottom menu to choose between Original Kosko, Modified Kosko, or Rescaled Kosko.
+3. **Choose a Transfer Function**: Select the transfer function for the simulation. Available options:
+   - **Sigmoid** [0,1]
+   - **Tanh** [-1,1]
+   - **Bivalent** {-1, 1}
+   - **Trivalent** {-1, 0, 1}
+4. **Select Activation Values**:
+   - Options include Zero, Full, Median (0.5), Random, and Manual.
+5. **Start the Simulation**:
+   - Click the **Initiate Classic Kosko** button to begin the simulation.
+
+What-if Analysis
+----------------
+
+FCM-VSS allows for what-if analysis, where specific nodes are set as static, meaning their activation values will not change during the simulation. This helps in assessing the stability of the system under fixed conditions.
+
+**How to Perform What-if Analysis**:
+- Select a node and assign a static activation value from the Simulation Menu.
+- Run the simulation and observe how other nodes are affected by this tweak.
+
+Visualizing Results
+-------------------
+
+After running a Kosko simulation, FCM-VSS provides a set of visual outputs to help analyze the results:
+
+- **Line Chart**: Shows the evolution of node activations over iterations.
+- **Bar Chart**: Displays the difference between static node convergence and Kosko convergence.

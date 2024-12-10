@@ -1,0 +1,62 @@
+FCM-VSS Features
+================
+
+FCM-VSS offers a rich set of features to help you manage, visualize, and simulate Fuzzy Cognitive Maps (FCMs). Here's an overview of the main functionalities:
+
+1. **AES-GCM Encryption**
+   -----------------------
+   FCM-VSS ensures secure data handling by using Advanced Encryption Standard (AES) with Galois Counter Mode (GCM). This encryption is used to secure FCM projects, checkpoints, and snapshots, preventing unauthorized access.
+
+   - The session key is used to encrypt and decrypt files during an active session.
+   - Files encrypted in one session can only be accessed with the same session key in another session.
+
+   **How to Use:**
+   - At the start of each session, the user is prompted to enter a session key for AES-GCM encryption.
+   - This key must be used throughout the session for saving and loading projects.
+
+2. **Checkpoint and Snapshot Management**
+   --------------------------------------
+   FCM-VSS allows users to save their FCM network configuration at any point using checkpoints. These checkpoints can be used to restore previous states, facilitating an organized workflow.
+
+   - **Checkpoints**: Save the state of the FCM at any point during the process. A tray for capturing and selecting checkpoints is maintained.
+   - **Snapshots**: Export and import FCM configurations as snapshots.
+
+   **How to Use:**
+   - Save checkpoints during the development process using the **Save as Checkpoint** option.
+   - Snapshots can be exported for future reference, ensuring the network configuration is preserved.
+
+3. **Node and Edge Manipulation**
+   ------------------------------
+   FCM-VSS offers intuitive controls for creating and managing FCM networks. You can add, delete, rename, or adjust nodes and edges in real time.
+
+   **Key Features**:
+   - Add or remove nodes and edges with a simple click.
+   - Keyboard shortcuts for faster workflow:
+     - **Ctrl + Q**: Add Node
+     - **Ctrl + E**: Add Edge
+   - Visual feedback for selected nodes and edges.
+
+4. **AI-powered Summarization**
+   ----------------------------
+   FCM-VSS integrates locally hosted AI models through **Ollama** to generate summaries of the FCM configuration.
+
+   **How it works**:
+   - Summarization is based on node statistics, Kosko simulation values, and the difference in static node convergence values.
+   - The summary is generated and presented as a tri-partite structure: node statistics, Kosko convergence values, and static node comparison.
+
+   **How to Use**:
+   - Select the AI model from the dropdown in the playground.
+   - Click the **AI-Summarize FCM Config** button to get the AI-based summary.
+
+5. **Real-Time Simulations with Kosko Algorithms**
+   -----------------------------------------------
+   FCM-VSS supports multiple Kosko-based inference mechanisms:
+   - **Original Kosko**
+   - **Modified Kosko** (with self-influence)
+   - **Rescaled Kosko** (re-scaled with normalization)
+
+   **How to Use**:
+   - Access simulation settings from the bottom menu.
+   - Choose from different inference mechanisms, transfer functions, and activation patterns.
+
+   See the [Kosko Simulation](kosko_simulation.rst) page for more details on how to configure and run these simulations.

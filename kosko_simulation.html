@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kosko Simulation &#8212; FCM-VSS 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css" />
+    <script src="static/documentation_options.js?v="></script>
+    <script src="static/doctools.js"></script>
+    <script src="static/sphinx_highlight.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Ollama for AI Summarization in FCM-VSS" href="ai_integration.html" />
+    <link rel="prev" title="FCM-VSS Features" href="features.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+
+  <div class="logo-container" style="text-align: center; padding: 10px;">
+    <img src="static/logo.png" alt="FCM-VSS Logo" style="max-width: 150px;">
+  </div>
+    
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="kosko-simulation">
+<h1>Kosko Simulation<a class="headerlink" href="#kosko-simulation" title="Link to this heading">¶</a></h1>
+<p>Kosko Simulation is a core feature of <strong>FCM-VSS</strong>, enabling users to simulate the behavior and dynamics of Fuzzy Cognitive Maps (FCMs) and assess system stability under different configurations. By simulating the interactions between concepts (nodes), Kosko Simulation offers insights into how a system behaves over time, helping users evaluate the influence and centrality of each concept.</p>
+<section id="what-is-kosko-simulation">
+<h2>What is Kosko Simulation?<a class="headerlink" href="#what-is-kosko-simulation" title="Link to this heading">¶</a></h2>
+<p>Kosko Simulation is an iterative process that updates the activation values of nodes based on their weighted causal relationships. FCMs are modeled as directed graphs where nodes represent system concepts, and edges represent the causal influences between them.</p>
+<p><strong>Key Insights from Kosko Simulation:</strong></p>
+<ul class="simple">
+<li><p><strong>System Equilibrium</strong>: The simulation shows whether the system reaches a stable state.</p></li>
+<li><p><strong>Concept Centrality</strong>: It highlights the most influential nodes within the network.</p></li>
+<li><p><strong>Sensitivity to External Changes</strong>: The simulation identifies how the system responds to changes in input values.</p></li>
+</ul>
+</section>
+<section id="inference-mechanisms-in-fcm-vss">
+<h2>Inference Mechanisms in FCM-VSS<a class="headerlink" href="#inference-mechanisms-in-fcm-vss" title="Link to this heading">¶</a></h2>
+<p>FCM-VSS supports three types of Kosko-based inference mechanisms:</p>
+<ol class="arabic">
+<li><p><strong>Original Kosko</strong>: No self-influence.
+- Formula:</p>
+<div class="math notranslate nohighlight">
+\[S_i^{(t+1)} = \sum_{j=1}^{n} w_{ji} S_j^{(t)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(S_i^{(t+1)}\)</span> is the state of node <span class="math notranslate nohighlight">\(i\)</span> at iteration <span class="math notranslate nohighlight">\(t+1\)</span>, and <span class="math notranslate nohighlight">\(w_{ji}\)</span> is the weight from node <span class="math notranslate nohighlight">\(j\)</span> to node <span class="math notranslate nohighlight">\(i\)</span>.</p>
+</li>
+<li><p><strong>Modified Kosko</strong>: Includes self-influence.
+- Formula:</p>
+<div class="math notranslate nohighlight">
+\[S_i^{(t+1)} = \sum_{j=1}^{n} w_{ji} S_j^{(t)} + S_i^{(t)}\]</div>
+<p>This includes a self-influence term, <span class="math notranslate nohighlight">\(S_i^{(t)}\)</span>, in the update equation.</p>
+</li>
+<li><p><strong>Rescaled Kosko</strong>: Re-scaled values to normalize node activations.
+- Formula:</p>
+<div class="math notranslate nohighlight">
+\[S_i^{(t+1)} = \frac{1}{2} \left( \sum_{j=1}^{n} w_{ji} (2S_j^{(t)} - 1) + (2S_i^{(t)} - 1) + 1 \right)\]</div>
+<p>This method rescales the influence to a [0, 1] range.</p>
+</li>
+</ol>
+</section>
+<section id="transfer-functions-in-fcm-vss">
+<h2>Transfer Functions in FCM-VSS<a class="headerlink" href="#transfer-functions-in-fcm-vss" title="Link to this heading">¶</a></h2>
+<p>Transfer functions are mathematical functions that define how activation values of nodes are rescaled during the simulation. FCM-VSS supports several types of transfer functions to capture the non-linearities in a system’s behavior.</p>
+<ol class="arabic">
+<li><p><strong>Sigmoid Transfer Function</strong>:</p>
+<p>The Sigmoid function is a smooth, S-shaped function that maps values to a range between 0 and 1. It is often used in simulations where values need to be normalized and constrained.</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \frac{1}{1 + e^{-x}}\]</div>
+<p>Where:
+- <span class="math notranslate nohighlight">\(x\)</span> is the input to the function (usually the weighted sum of inputs from connected nodes).
+- <span class="math notranslate nohighlight">\(f(x)\)</span> is the normalized output, which ranges between 0 and 1.</p>
+<p><strong>Properties</strong>:
+- As <span class="math notranslate nohighlight">\(x\)</span> approaches negative infinity, <span class="math notranslate nohighlight">\(f(x)\)</span> approaches 0.
+- As <span class="math notranslate nohighlight">\(x\)</span> approaches positive infinity, <span class="math notranslate nohighlight">\(f(x)\)</span> approaches 1.
+- At <span class="math notranslate nohighlight">\(x = 0\)</span>, the function outputs 0.5, making it symmetric about the origin.</p>
+</li>
+<li><p><strong>Hyperbolic Tangent (Tanh) Transfer Function</strong>:</p>
+<p>The Tanh function is similar to the Sigmoid function but maps values to the range [-1, 1]. This function is commonly used when the model needs to account for both positive and negative influences.</p>
+<div class="math notranslate nohighlight">
+\[f(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\]</div>
+<p>Where:
+- <span class="math notranslate nohighlight">\(x\)</span> is the input to the function.
+- <span class="math notranslate nohighlight">\(f(x)\)</span> is the output, which ranges between -1 and 1.</p>
+<p><strong>Properties</strong>:
+- As <span class="math notranslate nohighlight">\(x\)</span> approaches negative infinity, <span class="math notranslate nohighlight">\(f(x)\)</span> approaches -1.
+- As <span class="math notranslate nohighlight">\(x\)</span> approaches positive infinity, <span class="math notranslate nohighlight">\(f(x)\)</span> approaches 1.
+- At <span class="math notranslate nohighlight">\(x = 0\)</span>, the function outputs 0.</p>
+<p>The Tanh function is often preferred when the influence can have both positive and negative effects.</p>
+</li>
+<li><p><strong>Bivalent Transfer Function</strong>:</p>
+<p>The Bivalent function is a step function that outputs either -1 or 1, depending on whether the input is negative or positive.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) =
+\begin{cases}
+1 &amp; \text{if } x &gt; 0 \\
+-1 &amp; \text{if } x \leq 0
+\end{cases}\end{split}\]</div>
+<p><strong>Properties</strong>:
+- This is a hard threshold function that maps all positive inputs to 1 and all non-positive inputs to -1.
+- It does not provide a smooth transition but is useful in binary systems where only two states are considered.</p>
+</li>
+<li><p><strong>Trivalent Transfer Function</strong>:</p>
+<p>The Trivalent function extends the Bivalent function by introducing a third state, 0, for inputs near zero.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f(x) =
+\begin{cases}
+1 &amp; \text{if } x &gt; 0 \\
+0 &amp; \text{if } x = 0 \\
+-1 &amp; \text{if } x &lt; 0
+\end{cases}\end{split}\]</div>
+<p><strong>Properties</strong>:
+- This function allows for three distinct states: positive (1), neutral (0), and negative (-1).
+- It’s useful in cases where a neutral or inactive state is required.</p>
+</li>
+</ol>
+</section>
+<section id="how-to-run-a-kosko-simulation">
+<h2>How to Run a Kosko Simulation<a class="headerlink" href="#how-to-run-a-kosko-simulation" title="Link to this heading">¶</a></h2>
+<p>To simulate your FCM network using the Kosko algorithm, follow these steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Set up the FCM Network</strong>: Add nodes and edges to your FCM using the Playground Menu.</p></li>
+<li><p><strong>Select the Inference Mechanism</strong>:
+- Use the dropdown in the bottom menu to choose between Original Kosko, Modified Kosko, or Rescaled Kosko.</p></li>
+<li><p><strong>Choose a Transfer Function</strong>: Select the transfer function for the simulation. Available options:
+- <strong>Sigmoid</strong> [0,1]
+- <strong>Tanh</strong> [-1,1]
+- <strong>Bivalent</strong> {-1, 1}
+- <strong>Trivalent</strong> {-1, 0, 1}</p></li>
+<li><p><strong>Select Activation Values</strong>:
+- Options include Zero, Full, Median (0.5), Random, and Manual.</p></li>
+<li><p><strong>Start the Simulation</strong>:
+- Click the <strong>Initiate Classic Kosko</strong> button to begin the simulation.</p></li>
+</ol>
+</section>
+<section id="what-if-analysis">
+<h2>What-if Analysis<a class="headerlink" href="#what-if-analysis" title="Link to this heading">¶</a></h2>
+<p>FCM-VSS allows for what-if analysis, where specific nodes are set as static, meaning their activation values will not change during the simulation. This helps in assessing the stability of the system under fixed conditions.</p>
+<p><strong>How to Perform What-if Analysis</strong>:
+- Select a node and assign a static activation value from the Simulation Menu.
+- Run the simulation and observe how other nodes are affected by this tweak.</p>
+</section>
+<section id="visualizing-results">
+<h2>Visualizing Results<a class="headerlink" href="#visualizing-results" title="Link to this heading">¶</a></h2>
+<p>After running a Kosko simulation, FCM-VSS provides a set of visual outputs to help analyze the results:</p>
+<ul class="simple">
+<li><p><strong>Line Chart</strong>: Shows the evolution of node activations over iterations.</p></li>
+<li><p><strong>Bar Chart</strong>: Displays the difference between static node convergence and Kosko convergence.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FCM-VSS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="features.html">FCM-VSS Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kosko Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-kosko-simulation">What is Kosko Simulation?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inference-mechanisms-in-fcm-vss">Inference Mechanisms in FCM-VSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transfer-functions-in-fcm-vss">Transfer Functions in FCM-VSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-run-a-kosko-simulation">How to Run a Kosko Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-if-analysis">What-if Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualizing-results">Visualizing Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ai_integration.html">Using Ollama for AI Summarization in FCM-VSS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpoint_management.html">Checkpoint and Snapshot Management</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="features.html" title="previous chapter">FCM-VSS Features</a></li>
+      <li>Next: <a href="ai_integration.html" title="next chapter">Using Ollama for AI Summarization in FCM-VSS</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Vartul Shrivastava, Shekhar Shukla.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/kosko_simulation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

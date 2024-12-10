@@ -1,0 +1,7 @@
+/* _static/css/custom.css */
+.logo-container img {
+    max-width: 150px;  /* Adjust the size as needed */
+    margin: 0 auto;
+    display: block;
+    padding: 10px;  /* Optional padding */
+}
